@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Get Your Website for ₹499 | Fast Business Website</title>
+
+<meta name="description" content="Create your business website starting at just ₹499. Fast delivery in 24 hours. Contact on WhatsApp now.">
+
+<meta name="google-site-verification" content="Ud1geVx35D7FSWxoXg3d9ODGE_JC7LXAfV7Vsij_e_E" />
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+
+<style>
+body {margin:0;font-family:Arial;background:#020617;color:white;text-align:center;}
+h1 {color:#38bdf8;}
+.container {padding:15px;}
+select,button {padding:10px;margin:5px;border-radius:6px;border:none;}
+textarea {width:95%;height:160px;background:#0f172a;color:white;border:none;padding:10px;}
+iframe {width:95%;height:200px;background:white;margin-top:10px;}
+pre {background:#0f172a;padding:10px;text-align:left;margin:10px;}
+.card {background:#0f172a;padding:15px;margin:15px;border-radius:10px;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Professional Website Maker</h1>
+
+<h2>Get Your Business Website in 24 Hours</h2>
+<p>Starting at just ₹499</p>
+
+<a href="shop.html"><button>View Live Demo</button></a>
+
+<br><br>
+
+<!-- ₹499 Payment -->
+<a href="upi://pay?pa=ajeyrajpandey-1@oksbi&pn=CodeLab&am=499&cu=INR">
+<button style="background:#22c55e;">Pay ₹499 Now</button>
+</a>
+
+<br><br>
+
+<a href="https://wa.me/919572952368?text=Hi%20I%20want%20a%20website%20for%20my%20business">
+<button style="background:#25D366;">Contact on WhatsApp</button>
+</a>
+
+<p>7 days free support. After that ₹100/month maintenance</p>
+
+<!-- ABOUT -->
+<div class="card">
+  <h2>About Me</h2>
+  <p>I create simple, fast, mobile-friendly websites.</p>
+</div>
+
+<!-- PRACTICE TOOL -->
+<select id="lang">
+<option value="html">HTML</option>
+<option value="css">CSS</option>
+<option value="js">JavaScript</option>
+<option value="python">Python</option>
+</select>
+
+<select onchange="loadQuestion()" id="question">
+<option value="">Select Practice</option>
+<option value="h1">HTML: Create Heading</option>
+<option value="btn">HTML: Create Button</option>
+<option value="color">CSS: Change Background</option>
+<option value="js">JS: Show Alert</option>
+<option value="py">Python: Print Hello</option>
+</select>
+
+<textarea id="code"><h1>Hello World</h1></textarea>
+
+<br>
+
+<button onclick="runCode()">Run</button>
+<button onclick="resetCode()">Reset</button>
+
+<iframe id="output"></iframe>
+<pre id="pyoutput"></pre>
+
+<!-- ₹99 Practice Payment -->
+<div class="card">
+  <h3>Unlock Practice (₹99)</h3>
+  <a href="upi://pay?pa=ajeyrajpandey-1@oksbi&pn=CodeLab&am=99&cu=INR">
+    <button style="background:#22c55e;">Pay ₹99</button>
+  </a>
+</div>
+
+<!-- PORTFOLIO -->
+<div class="card">
+  <h2>My Projects</h2>
+  <p>✔ Coding Practice Website</p>
+  <p>✔ Grocery Shop Website 
+  <a href="shop.html" target="_blank">View</a></p>
+</div>
+
+<!-- CONTACT -->
+<div class="card">
+  <h3>Need a Website?</h3>
+  <p>UPI: ajeyrajpandey-1@oksbi</p>
+
+  <a href="https://wa.me/919572952368?text=Hi%20I%20want%20a%20website">
+    <button style="background:#25D366;color:white;">
+      Contact on WhatsApp
+    </button>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<p style="font-size:12px;opacity:0.6;">
+Demo website. No automatic billing.  
+Manual payment via UPI/WhatsApp.
+</p>
+
+</div>
+
+<script>
+let pyodide, ready=false;
+
+(async()=>{
+  pyodide = await loadPyodide();
+  ready=true;
+})();
+
+function loadQuestion(){
+let q=document.getElementById("question").value;
+let codeBox=document.getElementById("code");
+
+if(q==="h1") codeBox.value="<h1>Hello World</h1>";
+if(q==="btn") codeBox.value="<button>Click Me</button>";
+if(q==="color") codeBox.value="body { background: red; }";
+if(q==="js") codeBox.value="alert('Hello');";
+if(q==="py") codeBox.value="print('Hello World')";
+}
+
+function runCode(){
+let lang=document.getElementById("lang").value;
+let code=document.getElementById("code").value;
+
+let output=document.getElementById("output");
+let pyoutput=document.getElementById("pyoutput");
+
+output.srcdoc="";
+pyoutput.textContent="";
+
+if(lang==="html"){ output.srcdoc=code; }
+else if(lang==="css"){ output.srcdoc="<style>"+code+"</style>"; }
+else if(lang==="js"){ output.srcdoc="<script>"+code+"<\/script>"; }
+else if(lang==="python"){
+  if(!ready){alert("Loading Python..."); return;}
+  pyodide.runPythonAsync(`
+import sys
+from io import StringIO
+old_stdout = sys.stdout
+sys.stdout = mystdout = StringIO()
+
+${code}
+
+sys.stdout = old_stdout
+mystdout.getvalue()
+  `).then(result=>{
+    pyoutput.textContent=result;
+  });
+}
+}
+
+function resetCode(){
+document.getElementById("code").value="";
+document.getElementById("output").srcdoc="";
+document.getElementById("pyoutput").textContent="";
+}
+</script>
+
+</body>
+</html>
